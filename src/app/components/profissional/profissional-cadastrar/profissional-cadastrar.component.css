@@ -1,0 +1,36 @@
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    margin-top: 5%;
+    margin-right: 2%;
+}
+
+.mat-card {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+}
+
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+    
+}
+input[type=number] { 
+   -moz-appearance: textfield;
+   appearance: textfield;
+
+}
+
+::ng-deep .form .mat-form-field-prefix, ::ng-deep .form .mat-form-field-suffix { top: 0!important; }
+
+.item {
+	margin: 5px;
+	text-align: center;
+}
+
+.mat-form-field {
+    width: 100%;
+}

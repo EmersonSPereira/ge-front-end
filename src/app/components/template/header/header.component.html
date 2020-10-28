@@ -1,0 +1,15 @@
+<mat-toolbar color="primary" style="vertical-align: middle;" height="50px" class="mat-elevation-z5">
+    <a [routerLink]="[routerUrl]" routerLinkActive="router-link-active">
+        <i class="material-icons">
+            {{icon}}
+        </i>
+        <p>{{title}}</p>
+    </a>
+
+    <span class="spacer"></span>
+    <mat-icon *ngIf="!opened;else iconMenu" (click)="openOrClosenav()">menu</mat-icon>
+    <ng-template #iconMenu>
+        <mat-icon (click)="openOrClosenav()">close</mat-icon>
+    </ng-template>
+
+</mat-toolbar>
