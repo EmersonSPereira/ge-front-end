@@ -4,20 +4,20 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { merge, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
-import { Profissional } from 'src/app/domain/profissional';
-import { ProfissionalListagem } from '../../../domain/profissional-listagem';
+import { Estabelecimento } from 'src/app/domain/estabelecimento';
+import { EstabelecimentoListagem } from 'src/app/domain/estabelecimento-listagem ';
 import { DeletarDialogComponent } from '../../deletar-dialog/deletar-dialog.component';
-import { ProfissionalService } from '../profissional.service';
+import { EstabelecimentoService } from '../estabelecimento.service';
 
 @Component({
-  selector: 'app-profissional-listar',
-  templateUrl: './profissional-listar.component.html',
-  styleUrls: ['./profissional-listar.component.css']
+  selector: 'app-estabelecimento-listar',
+  templateUrl: './estabelecimento-listar.component.html',
+  styleUrls: ['./estabelecimento-listar.component.css']
 })
-export class ProfissionalListarComponent implements AfterViewInit {
+export class EstabelecimentoListarComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'nome', 'telefoneFixo', 'telefoneCelular', 'acao'];
-  data: ProfissionalListagem[] = [];
+  displayedColumns: string[] = ['id', 'nome', 'telefoneFixo', 'acao'];
+  data: EstabelecimentoListagem[] = [];
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -26,7 +26,7 @@ export class ProfissionalListarComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private profissionalService: ProfissionalService, public dialog: MatDialog) { }
+  constructor(private estabelecimetoService: EstabelecimentoService, public dialog: MatDialog) { }
 
   ngAfterViewInit() {
 
@@ -41,7 +41,7 @@ export class ProfissionalListarComponent implements AfterViewInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.profissionalService.buscarPaginado(
+          return this.estabelecimetoService.buscarPaginado(
             this.paginator.pageSize, this.paginator.pageIndex);
         }),
         map(data => {
@@ -59,12 +59,12 @@ export class ProfissionalListarComponent implements AfterViewInit {
       ).subscribe(data => this.data = data);
   }
 
-  openDialog(profissionalSelecionado: Profissional) {
+  openDialog(estabelecimentoSelecionado: Estabelecimento) {
     const dialogRef = this.dialog.open(DeletarDialogComponent, {
       data: {
-        id: profissionalSelecionado.id,
-        nome: profissionalSelecionado.nome,
-        dominio: 'profissional'
+        id: estabelecimentoSelecionado.id,
+        nome: estabelecimentoSelecionado.nome,
+        dominio: 'estabelecimento'
       }
     });
 

@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { Page } from 'src/app/domain/page';
 import { Profissional } from '../../domain/profissional';
 import { ProfissionalListagem } from '../../domain/profissional-listagem';
+import { DominioFixo } from '../../domain/dominio-fixo';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +55,12 @@ export class ProfissionalService {
 
   remover(id: number): Observable<Profissional> {
     return this.http.delete<Profissional>(`${this.baseUrl}/${id}`).pipe(
+      catchError(e => throwError(e))
+    );
+  }
+
+  buscarPorNome(nome: string): Observable<DominioFixo[]> {
+    return this.http.get<DominioFixo[]>(`${this.baseUrl}/nome/${nome}`).pipe(
       catchError(e => throwError(e))
     );
   }

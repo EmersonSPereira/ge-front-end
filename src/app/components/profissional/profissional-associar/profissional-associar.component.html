@@ -1,0 +1,39 @@
+<mat-card class="mat-elevation-z2">
+    <form class="example-form">
+        <mat-card-title>
+            Associar Profissional
+        </mat-card-title>
+        <mat-grid-list cols="12" rowHeight="100px">
+            <mat-grid-tile [colspan]="6" [rowspan]="1">
+                <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-label>Estabelecimento</mat-label>
+                    <input type="text" matInput  [(ngModel)]="dominiofixo"  [formControl]="myControl" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{option.descricao}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+               {{dominiofixo?.id}}
+            </mat-grid-tile>
+            <div>
+                <mat-grid-tile [colspan]="3" [rowspan]="1">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Telefone Celular</mat-label>
+                        <input matInput type="text" placeholder="Telefone Fixo" mask="(00) 0000-0000" required>
+
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile [colspan]="3" [rowspan]="1">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Telefone Fixo</mat-label>
+                        <input matInput type="text" placeholder="Telefone Celular" mask="(00) 0000-0000" required>
+
+                    </mat-form-field>
+                </mat-grid-tile>
+            </div>
+        </mat-grid-list>
+    </form>
+</mat-card>

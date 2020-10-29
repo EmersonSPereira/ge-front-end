@@ -26,6 +26,14 @@ export class NavComponent implements OnInit {
     this.opened = false;
     this.route.navigateByUrl('/profissionais');
   }
+  navegarEstabelecimentos(): void {
+    this.opened = false;
+    this.route.navigateByUrl('/estabelecimentos');
+  }
+  navegarAssociarProfissional(): void {
+    this.opened = false;
+    this.route.navigateByUrl('/profissionais/associar');
+  }
   navegarHome(): void {
     this.opened = false;
     this.route.navigateByUrl('/');

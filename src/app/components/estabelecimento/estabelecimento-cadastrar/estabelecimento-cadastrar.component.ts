@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { EstabelecimentoService } from '../../estabelecimento/estabelecimento.service';
 import { ProgressService } from '../../template/progress/progress.service';
-import { ProfissionalService } from '../profissional.service';
 
 @Component({
-  selector: 'app-profissional-cadastrar',
-  templateUrl: './profissional-cadastrar.component.html',
-  styleUrls: ['./profissional-cadastrar.component.css']
+  selector: 'app-estabelecimento-cadastrar',
+  templateUrl: './estabelecimento-cadastrar.component.html',
+  styleUrls: ['./estabelecimento-cadastrar.component.css']
 })
-export class ProfissionalCadastrarComponent implements OnInit {
+export class EstabelecimentoCadastrarComponent implements OnInit {
 
   form = this.fb.group({
 
@@ -23,12 +23,11 @@ export class ProfissionalCadastrarComponent implements OnInit {
       cep: [null, Validators.compose([Validators.required])]
     }),
     telefone: this.fb.group({
-        numeroTelefoneFixo: [null, Validators.compose([Validators.required])],
-        numeroTelefoneCelular: [null, Validators.compose([Validators.required])],
-      }),
+      numeroTelefoneFixo: [null, Validators.compose([Validators.required])],
+    }),
   });
   constructor(
-    private profissionalService: ProfissionalService,
+    private EstabelecimentoService: EstabelecimentoService,
     private router: Router, private fb: FormBuilder,
     private progressService: ProgressService) { }
 
@@ -36,20 +35,20 @@ export class ProfissionalCadastrarComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/profissionais']);
+    this.router.navigate(['/estabelecimentos']);
   }
 
   createProduct(): void {
     this.progressService.progress.show = true;
     if (this.form.valid) {
-      this.profissionalService.cadastrar(this.form.value).subscribe(
+      this.EstabelecimentoService.cadastrar(this.form.value).subscribe(
         () => {
           this.progressService.progress.show = false;
-          this.profissionalService.exibirMensagem('Sucesso ao cadastrar profissional');
-          this.router.navigate(['/profissionais']);
+          this.EstabelecimentoService.exibirMensagem('Sucesso ao cadastrar estabelecimento');
+          this.router.navigate(['/estabelecimentos']);
         }, err => {
           this.progressService.progress.show = false;
-          this.profissionalService.exibirMensagem('Falha ao cadastrar profissional', true);
+          this.EstabelecimentoService.exibirMensagem('Falha ao cadastrar estabelecimento', true);
         });
     } else {
       this.progressService.progress.show = false;
@@ -93,5 +92,4 @@ export class ProfissionalCadastrarComponent implements OnInit {
   get cep() {
     return this.endereco.get('cep');
   }
-
 }

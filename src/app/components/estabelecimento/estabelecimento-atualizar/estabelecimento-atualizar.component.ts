@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderService } from '../../template/header/header.service';
 import { ProgressService } from '../../template/progress/progress.service';
-import { ProfissionalService } from '../profissional.service';
+import { EstabelecimentoService } from '../estabelecimento.service';
 
 @Component({
-  selector: 'app-profissional-atualizar',
-  templateUrl: './profissional-atualizar.component.html',
-  styleUrls: ['./profissional-atualizar.component.css']
+  selector: 'app-estabelecimento-atualizar',
+  templateUrl: './estabelecimento-atualizar.component.html',
+  styleUrls: ['./estabelecimento-atualizar.component.css']
 })
-export class ProfissionalAtualizarComponent implements OnInit {
+export class EstabelecimentoAtualizarComponent implements OnInit {
 
   form = this.fb.group({
     id: [null],
@@ -27,11 +27,10 @@ export class ProfissionalAtualizarComponent implements OnInit {
     telefone: this.fb.group({
       id: [null],
       numeroTelefoneFixo: [null, Validators.compose([Validators.required])],
-      numeroTelefoneCelular: [null, Validators.compose([Validators.required])],
     }),
   });
   constructor(
-    private profissionalService: ProfissionalService,
+    private estabelecimentoService: EstabelecimentoService,
     private router: Router,
     private route: ActivatedRoute,
     private headerService: HeaderService,
@@ -39,30 +38,30 @@ export class ProfissionalAtualizarComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.headerService.headerData = {
-      title: 'Editar Profissional',
+      title: 'Editar Estabelecimento',
       icon: 'edit',
-      routerUrl: `./profissionais/atualizar/${this.route.snapshot.paramMap.get('id')}`
+      routerUrl: `./estabelecimentos/atualizar/${this.route.snapshot.paramMap.get('id')}`
     };
   }
 
   ngOnInit(): void {
-    this.profissionalService.buscarPorId(this.route.snapshot.paramMap.get('id')).subscribe(
-      profissional => {
-        this.form.patchValue(profissional);
+    this.estabelecimentoService.buscarPorId(this.route.snapshot.paramMap.get('id')).subscribe(
+      estabelecimento => {
+        this.form.patchValue(estabelecimento);
       }
     );
   }
 
-  updateProduct(): void {
+  atualizar(): void {
     this.progressService.progress.show = true;
     if (this.form.valid) {
-      this.profissionalService.atualizar(this.form.value).subscribe(
+      this.estabelecimentoService.atualizar(this.form.value).subscribe(
         () => {
           this.progressService.progress.show = false;
-          this.router.navigate(['profissionais']);
-          this.profissionalService.exibirMensagem('Profissional atualizado com sucesso!');
+          this.router.navigate(['estabelecimentos']);
+          this.estabelecimentoService.exibirMensagem('Estabelecimento atualizado com sucesso!');
         }, err => {
-          this.profissionalService.exibirMensagem('Falha ao atualizar profissional', true);
+          this.estabelecimentoService.exibirMensagem('Falha ao atualizar estabelecimento', true);
           this.progressService.progress.show = false;
         });
     } else {
@@ -71,8 +70,8 @@ export class ProfissionalAtualizarComponent implements OnInit {
     }
   }
 
-  cancel(): void {
-    this.router.navigate(['profissionais']);
+  cancelar(): void {
+    this.router.navigate(['estabelecimentos']);
   }
 
   get formValue() {
@@ -108,5 +107,6 @@ export class ProfissionalAtualizarComponent implements OnInit {
   get cep() {
     return this.endereco.get('cep');
   }
+
 
 }

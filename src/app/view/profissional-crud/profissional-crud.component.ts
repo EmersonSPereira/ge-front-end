@@ -7,7 +7,7 @@ import { HeaderService } from 'src/app/components/template/header/header.service
   templateUrl: './profissional-crud.component.html',
   styleUrls: ['./profissional-crud.component.css']
 })
-export class ProductCrudComponent implements OnInit {
+export class ProfissionalCrudComponent implements OnInit {
 
   constructor(private router: Router, private headerService: HeaderService) {
     headerService.headerData = {
@@ -20,7 +20,7 @@ export class ProductCrudComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public navigateToProductCreate(): void {
+  public paraCadastrarProfissional(): void {
     this.router.navigate(['/profissionais/cadastrar']);
   }
 }
